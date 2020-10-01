@@ -1,24 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
 
-using Coords = System.Tuple<System.Func<double, double>, System.Func<double, double>>;
+namespace Plotable {
+	using Coords = Tuple<Func<double, double>, Func<double, double>>;
 
-namespace Graphics {
+
 	class Curve {
-		private Coords _functions;
-		private bool _isExcplicit;
+		private static Curve _instance;
 
-		public Curve(Func<double, double> X, Func<double, double> Y) {
-			_functions = new Coords(X, Y);
-			_isExcplicit = false;
+		public bool IsParametric { get; private set; }
+		public bool IsPolar { get; private set; }
+		public Coords Functions { get; private set; }
+
+		public void SetupCurve(Coords func, bool isPolar) {
+			if(_instance == null)
+				_instance = new Curve();
+
+			_instance.Functions = func;
+			_instance.IsParametric = func.Item2 != null;
+			_instance.IsPolar = isPolar;
 		}
 
-		public Curve(Func<double, double> func) {
-			_functions = new Coords(func, null);
-			_isExcplicit = true;
+		public static Curve GetCurve() {
+			if(_instance == null)
+				_instance = new Curve();
+
+			return _instance;
 		}
 	}
 }

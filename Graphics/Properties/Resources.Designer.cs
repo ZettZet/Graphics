@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Graphics.Properties {
+namespace Plotable.Properties {
 
 
 	/// <summary>
